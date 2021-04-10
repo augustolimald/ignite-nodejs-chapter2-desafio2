@@ -1,0 +1,247 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"description": "API para Listagem e Cadastro de Usuários",
+		"title": "Usuários",
+		"version": "1.0.0",
+		"contact": {
+			"email": "augustocesar827@gmail.com"
+		}
+	},
+
+	"paths": {
+		"/users": {
+			"post": {
+				"summary": "Create a new user",
+				"description": "Create a new user",
+				"tags": ["Users"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"example": {
+									"name": "Augusto Lima",
+									"email": "augustocesar827@gmail.com"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "User created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "68e6f5ef-fe6b-4584-b92e-64cfd874ae3a"
+										},
+										"admin": {
+											"type": "boolean",
+											"example": false
+										},
+										"name": {
+											"type": "string",
+											"example": "Augusto Lima"
+										},
+										"email": {
+											"type": "string",
+											"example": "augustocesar827@gmail.com"
+										},
+										"created_at": {
+											"type": "date",
+											"example": "2021-04-10T14:35:48.453Z"
+										},
+										"updated_at": {
+											"type": "date",
+											"example": "2021-04-10T14:35:48.453Z"
+										}
+									}	
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Email already been taken"
+					}
+				}
+			},
+
+			"get": {
+				"summary": "List all users",
+				"description": "List all users. Only admins can do that",
+				"tags": ["Users"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string",
+												"example": "68e6f5ef-fe6b-4584-b92e-64cfd874ae3a"
+											},
+											"admin": {
+												"type": "boolean",
+												"example": false
+											},
+											"name": {
+												"type": "string",
+												"example": "Augusto Lima"
+											},
+											"email": {
+												"type": "string",
+												"example": "augustocesar827@gmail.com"
+											},
+											"created_at": {
+												"type": "date",
+												"example": "2021-04-10T14:35:48.453Z"
+											},
+											"updated_at": {
+												"type": "date",
+												"example": "2021-04-10T14:35:48.453Z"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "You don't have permission to do that"
+					}
+				}
+			}
+		},
+
+		"/users/id": {
+			"get": {
+				"summary": "Show info about an user",
+				"description": "Show info about an user",
+				"tags": ["Users"],
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"required": "true",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "68e6f5ef-fe6b-4584-b92e-64cfd874ae3a"
+										},
+										"admin": {
+											"type": "boolean",
+											"example": false
+										},
+										"name": {
+											"type": "string",
+											"example": "Augusto Lima"
+										},
+										"email": {
+											"type": "string",
+											"example": "augustocesar827@gmail.com"
+										},
+										"created_at": {
+											"type": "date",
+											"example": "2021-04-10T14:35:48.453Z"
+										},
+										"updated_at": {
+											"type": "date",
+											"example": "2021-04-10T14:35:48.453Z"
+										}
+									}	
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					}
+				}
+			}
+		},
+
+		"/users/{user_id}/admin": {
+			"patch": {
+				"summary": "Turn an user into an admin",
+				"description": "Turn an user into an admin",
+				"tags": ["Users"],
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"required": "true",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "This is user is now an admin",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "68e6f5ef-fe6b-4584-b92e-64cfd874ae3a"
+										},
+										"admin": {
+											"type": "boolean",
+											"example": true
+										},
+										"name": {
+											"type": "string",
+											"example": "Augusto Lima"
+										},
+										"email": {
+											"type": "string",
+											"example": "augustocesar827@gmail.com"
+										},
+										"created_at": {
+											"type": "date",
+											"example": "2021-04-10T14:35:48.453Z"
+										},
+										"updated_at": {
+											"type": "date",
+											"example": "2021-04-10T14:35:48.453Z"
+										}
+									}	
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					}
+				}
+			}
+		}
+	}
+}
